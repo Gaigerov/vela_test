@@ -1,0 +1,19 @@
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin hover-effect {
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+@mixin icon-style($size) {
+    width: $size;
+    height: $size;
+    fill: currentColor;
+}

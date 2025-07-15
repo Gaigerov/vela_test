@@ -1,0 +1,116 @@
+.mainPage {
+    font-family: $font-family-base;
+    padding: 100px;
+    color: $white;
+    text-align: left;
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    flex: 1;
+    background: linear-gradient(135deg, #672870 20%, #4fe0ff 100%),
+        radial-gradient(circle at center, #546079 0%, #b3bbcb 100%);
+    background-blend-mode: overlay;
+    position: relative;
+    overflow: hidden;
+    padding-top: calc(100px + #{$header-height});
+    display: flex;
+    align-items: flex-start;
+}
+
+.contentWrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 729px;
+}
+
+.imageWrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.mainImage {
+    position: absolute;
+    top: 325px;
+    right: -185px;
+    transform: translateY(-50%);
+    width: 767px;
+    max-width: none;
+    z-index: 1;
+}
+
+.title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.description {
+    max-width: 639px;
+    font-size: 18px;
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+.button {
+    font-family: $font-family-maza;
+    background: $white;
+    color: $primary-color;
+    border: none;
+    border-radius: 4px;
+    padding: 14px 36px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 3;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@media (max-width: $small-mobile) {
+    .mainPage {
+        padding: 24px 16px;
+        padding-top: calc(24px + #{$header-height});
+        flex-direction: column;
+    }
+
+    .contentWrapper {
+        max-width: 100%;
+        z-index: 3;
+    }
+
+    .imageWrapper {
+        position: relative;
+        order: -1;
+        width: 100%;
+        height: 200px;
+        margin-bottom: 20px;
+        z-index: 1;
+    }
+
+    .mainImage {
+        position: static;
+        transform: none;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        right: 0;
+    }
+
+    .title {
+        font-size: 36px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+}
