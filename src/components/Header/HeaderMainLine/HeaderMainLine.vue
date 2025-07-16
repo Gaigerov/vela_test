@@ -10,7 +10,8 @@ const menuItems = [
     {text: 'Акции', icon: 'Flame'},
     {text: 'Горячее предложение', icon: 'lightning'},
     {text: 'Подарочные наборы', icon: 'cart2'},
-    {text: 'События', icon: 'quest'}
+    {text: 'События', icon: 'quest'},
+    {text: 'Наши бренды', icon: 'orc'}
 ];
 </script>
 

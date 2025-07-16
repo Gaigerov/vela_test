@@ -53,7 +53,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 24px;
+    padding: 18px 24px;
     cursor: pointer;
     transition: background-color 0.2s;
     border-bottom: 1px solid $light-gray;
@@ -140,7 +140,7 @@
 }
 
 .submenuTitle {
-    margin: 0 0 16px 0;
+    margin: 0 0 32px 0;
     font-size: 30px;
     font-weight: 700;
     color: $dark-gray;
