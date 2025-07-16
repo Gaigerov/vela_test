@@ -28,16 +28,11 @@ const closeMenu = () => {
                 <button ref="menuButton" :class="styles.button" @click="toggleMenu">В каталог</button>
             </div>
         </div>
-        
-        <Menu 
-            v-if="isMenuVisible" 
-            :button-element="menuButton" 
-            @close="closeMenu" 
-        />
-        
+
+        <Menu v-if="isMenuVisible" :button-element="menuButton" @close="closeMenu" />
+
         <div :class="styles.imageWrapper">
             <img src="../../assets/gamepad.png" alt="gamepad" :class="styles.mainImage" />
         </div>
     </main>
 </template>
-

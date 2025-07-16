@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import {defineEmits} from 'vue';
+import {ref, defineEmits} from 'vue';
 import styles from './HeaderMainLine.module.scss';
 
 const emit = defineEmits(['toggleMobileMenu']);
+const burgerRef = ref<HTMLButtonElement | null>(null);
+
+const handleBurgerClick = () => {
+    if (burgerRef.value) {
+        emit('toggleMobileMenu', burgerRef.value);
+    }
+};
 
 const socialIcons = ['telegram', 'whatsapp'];
 const userIcons = ['heart', 'user', 'cart'];
@@ -20,7 +27,7 @@ const menuItems = [
         <!-- Первая строка -->
         <!-- Колонка 1: Бургер -->
         <div :class="styles.burgerCell">
-            <button :class="styles.burger" @click="emit('toggleMobileMenu')">
+            <button ref="burgerRef" :class="styles.burger" @click="handleBurgerClick">
                 <img src="/icons/burger.svg" :class="styles.burgerIcon" alt="Menu" />
             </button>
         </div>

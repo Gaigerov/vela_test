@@ -220,10 +220,8 @@ onBeforeUnmount(() => {
     window.removeEventListener('resize', updatePosition);
 });
 
-// Функция для обновления позиции
 const updatePosition = () => {
     if (menuRef.value) {
-
         menuRef.value.style.position = 'fixed';
         menuRef.value.style.top = '187px';
         menuRef.value.style.left = '10%';
