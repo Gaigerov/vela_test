@@ -212,9 +212,22 @@ const handleClickOutside = (event: MouseEvent) => {
 
 onMounted(() => {
     document.addEventListener('click', handleClickOutside);
+    window.addEventListener('resize', updatePosition);
 });
 
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside);
+    window.removeEventListener('resize', updatePosition);
 });
+
+// Функция для обновления позиции
+const updatePosition = () => {
+    if (menuRef.value) {
+
+        menuRef.value.style.position = 'fixed';
+        menuRef.value.style.top = '187px';
+        menuRef.value.style.left = '10%';
+        menuRef.value.style.width = 'auto';
+    }
+};
 </script>

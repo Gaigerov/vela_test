@@ -4,7 +4,9 @@
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     display: flex;
-    position: relative;
+    position: fixed;
+    top: 187px;
+    left: 10%;
     z-index: 1000;
     min-width: 320px;
     padding: 24px 0;
@@ -90,11 +92,11 @@
 .submenuContainer {
     display: flex;
     padding: 0 16px;
-    gap: 24px;
+    gap: 48px;
     min-width: max-content;
     flex: 1;
     background: white;
-    border-radius: 0 8px 8px 0; 
+    border-radius: 0 8px 8px 0;
     border-left: 1px solid $light-gray;
 
     @media (max-width: $small-mobile) {
