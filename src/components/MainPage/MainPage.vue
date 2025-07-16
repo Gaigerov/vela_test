@@ -1,5 +1,18 @@
 <script setup lang="ts">
+import {ref} from 'vue';
+import Menu from '../../components/Menu/Menu.vue';
 import styles from './MainPage.module.scss';
+
+const isMenuVisible = ref(false);
+const menuButton = ref<HTMLButtonElement | null>(null);
+
+const toggleMenu = () => {
+    isMenuVisible.value = !isMenuVisible.value;
+};
+
+const closeMenu = () => {
+    isMenuVisible.value = false;
+};
 </script>
 
 <template>
@@ -11,7 +24,10 @@ import styles from './MainPage.module.scss';
                 нашей поддержкой каждое твое действие станет частью великого искусства, а победы — результатом точного
                 плана и безупречной подготовки!
             </p>
-            <button :class="styles.button">В каталог</button>
+            <div :class="styles.buttonContainer">
+                <button ref="menuButton" :class="styles.button" @click="toggleMenu">В каталог</button>
+                <Menu v-if="isMenuVisible" :class="styles.menu" :button-element="menuButton" @close="closeMenu" />
+            </div>
         </div>
         <div :class="styles.imageWrapper">
             <img src="../../assets/gamepad.png" alt="gamepad" :class="styles.mainImage" />
