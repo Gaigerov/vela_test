@@ -29,7 +29,7 @@ const closeMenu = () => {
             </div>
         </div>
 
-        <Menu v-if="isMenuVisible" :button-element="menuButton" @close="closeMenu" />
+        <Menu v-if="isMenuVisible" :is-open="isMenuVisible" :button-element="menuButton" @close="closeMenu" />
 
         <div :class="styles.imageWrapper">
             <img src="../../assets/gamepad.png" alt="gamepad" :class="styles.mainImage" />

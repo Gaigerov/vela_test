@@ -53,8 +53,8 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted, onBeforeUnmount, nextTick} from 'vue';
-import type {PropType} from 'vue';
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import type { PropType } from 'vue';
 import styles from './Menu.module.scss';
 
 interface SubItem {
@@ -200,11 +200,13 @@ const keepSubMenuOpen = () => {
 };
 
 const handleClickOutside = (event: MouseEvent) => {
+    if (!menuRef.value || !props.buttonElement) return;
+    
+    const target = event.target as Node;
+    
     if (
-        menuRef.value &&
-        !menuRef.value.contains(event.target as Node) &&
-        props.buttonElement &&
-        !props.buttonElement.contains(event.target as Node)
+        !menuRef.value.contains(target) &&
+        !props.buttonElement.contains(target)
     ) {
         emit('close');
     }
@@ -213,6 +215,7 @@ const handleClickOutside = (event: MouseEvent) => {
 onMounted(() => {
     document.addEventListener('click', handleClickOutside);
     window.addEventListener('resize', updatePosition);
+    updatePosition();
 });
 
 onBeforeUnmount(() => {
@@ -221,10 +224,11 @@ onBeforeUnmount(() => {
 });
 
 const updatePosition = () => {
-    if (menuRef.value) {
+    if (menuRef.value && props.buttonElement) {
+        const rect = props.buttonElement.getBoundingClientRect();
         menuRef.value.style.position = 'fixed';
-        menuRef.value.style.top = '187px';
-        menuRef.value.style.left = '10%';
+        menuRef.value.style.top = `${rect.bottom + window.scrollY}px`;
+        menuRef.value.style.left = `${rect.left + window.scrollX}px`;
         menuRef.value.style.width = 'auto';
     }
 };

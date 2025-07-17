@@ -1,17 +1,20 @@
-
 <script setup lang="ts">
 import { ref } from 'vue';
 import HeaderTopLine from './HeaderTopLine/HeaderTopLine.vue';
 import HeaderMainLine from './HeaderMainLine/HeaderMainLine.vue';
-import Menu from '@/components/Menu/Menu.vue'; // Добавьте импорт
+import Menu from '@/components/Menu/Menu.vue';
 import styles from './Header.module.scss';
 
 const isMobileMenuOpen = ref(false);
-const burgerButton = ref<HTMLButtonElement | null>(null); // Ref для кнопки бургера
+const burgerButton = ref<HTMLButtonElement | null>(null);
 
 const toggleMobileMenu = (button: HTMLButtonElement) => {
     isMobileMenuOpen.value = !isMobileMenuOpen.value;
-    burgerButton.value = button; // Сохраняем кнопку для позиционирования
+    burgerButton.value = button;
+};
+
+const closeMobileMenu = () => {
+    isMobileMenuOpen.value = false;
 };
 </script>
 
@@ -23,15 +26,16 @@ const toggleMobileMenu = (button: HTMLButtonElement) => {
                 <img src="/icons/logo.svg" :class="styles.logoIcon" alt="Logo" />
             </a>
             <div :class="styles.rightColumn">
-                <!-- Передаём кнопку через событие -->
-                <HeaderMainLine @toggle-mobile-menu="toggleMobileMenu" />
+                <HeaderMainLine 
+                    :is-menu-open="isMobileMenuOpen" 
+                    @toggle-mobile-menu="toggleMobileMenu" 
+                />
             </div>
         </div>
-        <!-- Добавляем Menu с привязкой к кнопке -->
         <Menu 
             v-if="isMobileMenuOpen"
             :button-element="burgerButton"
-            @close="isMobileMenuOpen = false"
+            @close="closeMobileMenu"
         />
     </header>
 </template>
