@@ -2,6 +2,46 @@
 import {defineEmits, defineProps, ref, computed, onMounted, onBeforeUnmount, watch} from 'vue';
 import MenuLinkPopup, {type PopupData, type PopupColumn} from '../../MenuLinkPopup/MenuLinkPopup.vue';
 import styles from './HeaderMainLine.module.scss';
+import burgerIcon from '@/icons/burger.svg';
+import xIcon from '@/icons/x.svg';
+import telegramIcon from '@/icons/telegram.svg';
+import whatsappIcon from '@/icons/whatsapp.svg';
+import globeIcon from '@/icons/globe.svg';
+import heartIcon from '@/icons/heart.svg';
+import userIcon from '@/icons/user.svg';
+import cartIcon from '@/icons/cart.svg';
+import plusIcon from '@/icons/plus.svg';
+import logoIcon from '@/icons/logo.svg';
+import lupaIcon from '@/icons/lupa.svg';
+
+// Иконки для меню
+import FlameIcon from '@/icons/Flame.svg';
+import lightningIcon from '@/icons/lightning.svg';
+import cart2Icon from '@/icons/cart2.svg';
+import questIcon from '@/icons/quest.svg';
+import orcIcon from '@/icons/orc.svg';
+
+// Объект для доступа к иконкам меню
+const menuIconMap: Record<string, string> = {
+  'Flame': FlameIcon,
+  'lightning': lightningIcon,
+  'cart2': cart2Icon,
+  'quest': questIcon,
+  'orc': orcIcon
+};
+
+// Объект для социальных иконок
+const socialIcons: Record<string, string> = {
+  'telegram': telegramIcon,
+  'whatsapp': whatsappIcon
+};
+
+// Объект для иконок профиля
+const profileIcons: Record<string, string> = {
+  'heart': heartIcon,
+  'user': userIcon,
+  'cart': cartIcon
+};
 
 const props = defineProps({
     isMenuOpen: Boolean
@@ -185,8 +225,8 @@ const popupItems = computed(
                 :class="styles.burger" 
                 @click="handleBurgerClick"
             >
-                <img v-if="!props.isMenuOpen" src="../../../icons/burger.svg" :class="styles.burgerIcon" alt="Menu" />
-                <img v-else src="../../../icons/x.svg" :class="styles.burgerIcon" alt="Close" />
+                <img v-if="!props.isMenuOpen" :src="burgerIcon" :class="styles.burgerIcon" alt="Menu" />
+                <img v-else :src="xIcon" :class="styles.burgerIcon" alt="Close" />
             </button>
         </div>
 
@@ -200,14 +240,14 @@ const popupItems = computed(
         <div :class="styles.socialsCell">
             <div :class="styles.socials">
                 <a v-for="(icon, index) in ['telegram', 'whatsapp']" :key="index" :class="styles.socialLink" href="#">
-                    <img :src="`/icons/${icon}.svg`" :class="styles.socialIcon" :alt="icon" />
+                    <img :src="socialIcons[icon]" :class="styles.socialIcon" :alt="icon" />
                 </a>
             </div>
         </div>
 
         <div :class="styles.langCell">
             <div :class="styles.lang">
-                <img src="/icons/globe.svg" :class="styles.langIcon" alt="Globe" />
+                <img :src="globeIcon" :class="styles.langIcon" alt="Globe" />
                 <span :class="styles.activeLang">RU</span> |
                 <span>EN</span>
             </div>
@@ -216,7 +256,7 @@ const popupItems = computed(
         <div :class="styles.iconsCell">
             <div :class="styles.icons">
                 <a v-for="(icon, index) in ['heart', 'user', 'cart']" :key="index" :class="styles.iconLink" href="#">
-                    <img :src="`/icons/${icon}.svg`" :class="styles.icon" :alt="icon" />
+                    <img :src="profileIcons[icon]" :class="styles.icon" :alt="icon" />
                 </a>
             </div>
         </div>
@@ -231,7 +271,7 @@ const popupItems = computed(
                     @click="handleMenuLinkClick($event, item.id)"
                     class="menu-link"
                 >
-                    <img :src="`/icons/${item.icon}.svg`" :class="styles.menuIcon" :alt="item.icon" />
+                    <img :src="menuIconMap[item.icon]" :class="styles.menuIcon" :alt="item.icon" />
                     {{ item.text }}
                 </a>
             </nav>
@@ -255,38 +295,38 @@ const popupItems = computed(
                 :class="styles.burger" 
                 @click="handleBurgerClick"
             >
-                <img v-if="!props.isMenuOpen" src="../../../icons/burger.svg" :class="styles.burgerIcon" alt="Menu" />
-                <img v-else src="../../../icons/x.svg" :class="styles.burgerIcon" alt="Close" />
+                <img v-if="!props.isMenuOpen" :src="burgerIcon" :class="styles.burgerIcon" alt="Menu" />
+                <img v-else :src="xIcon" :class="styles.burgerIcon" alt="Close" />
             </button>
         </div>
 
         <div :class="styles.userIconCell">
             <a :class="styles.iconLink" href="#">
-                <img src="/icons/user.svg" :class="styles.icon" alt="user" />
+                <img :src="userIcon" :class="styles.icon" alt="user" />
             </a>
         </div>
 
         <div :class="styles.logoCell">
-            <img src="/icons/logo.svg" :class="styles.logo" alt="Logo" />
+            <img :src="logoIcon" :class="styles.logo" alt="Logo" />
         </div>
 
         <div :class="styles.heartIconCell">
             <a :class="styles.iconLink" href="#">
-                <img src="/icons/heart.svg" :class="styles.icon" alt="heart" />
+                <img :src="heartIcon" :class="styles.icon" alt="heart" />
             </a>
         </div>
 
         <div :class="styles.cartIconCell">
             <a :class="styles.iconLink" href="#">
-                <img src="/icons/cart.svg" :class="styles.icon" alt="cart" />
+                <img :src="cartIcon" :class="styles.icon" alt="cart" />
             </a>
         </div>
-
+        
         <div :class="styles.mobileSearchCell">
             <div :class="styles.search">
                 <input type="text" :class="styles.searchInput" placeholder="Поиск товаров..." />
                 <button :class="styles.searchButton">
-                    <img :class="styles.searchIcon" src="../../../icons/lupa.svg" alt="Search" />
+                    <img :class="styles.searchIcon" :src="lupaIcon" alt="Search" />
                 </button>
             </div>
         </div>

@@ -1,7 +1,11 @@
 import styles from './HeaderTopLine.module.scss';
+// Импорт иконок
+import globeIcon from '@/icons/globe.svg';
+import locationIcon from '@/icons/location.svg';
+import phoneIcon from '@/icons/phone.svg';
 const contactItems = [
-    { icon: 'location', text: 'Сайлент-Хилл' },
-    { icon: 'phone', text: '+7 555 555-37-50' }
+    { icon: 'location', text: 'Сайлент-Хилл', iconSrc: locationIcon },
+    { icon: 'phone', text: '+7 555 555-37-50', iconSrc: phoneIcon }
 ];
 const navItems = ['Доставка', 'Оплата', 'Контакты'];
 const phoneContact = contactItems.find(item => item.icon === 'phone');
@@ -19,7 +23,7 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
     ...{ class: (__VLS_ctx.styles.lang) },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-    src: "/icons/globe.svg",
+    src: (__VLS_ctx.globeIcon),
     ...{ class: (__VLS_ctx.styles.langIcon) },
     alt: "Globe",
 });
@@ -36,7 +40,7 @@ for (const [item, index] of __VLS_getVForSourceType((__VLS_ctx.contactItems))) {
         ...{ class: (__VLS_ctx.styles.contactItem) },
     });
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-        src: (`/icons/${item.icon}.svg`),
+        src: (item.iconSrc),
         ...{ class: (__VLS_ctx.styles.contactIcon) },
         alt: (item.icon),
     });
@@ -64,7 +68,7 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
     ...{ class: (__VLS_ctx.styles.contactItem) },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-    src: "/icons/phone.svg",
+    src: (__VLS_ctx.phoneContact.iconSrc),
     ...{ class: (__VLS_ctx.styles.contactIcon) },
     alt: "phone",
 });
@@ -75,6 +79,7 @@ const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
             styles: styles,
+            globeIcon: globeIcon,
             contactItems: contactItems,
             navItems: navItems,
             phoneContact: phoneContact,

@@ -1,6 +1,41 @@
 import { defineEmits, defineProps, ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import MenuLinkPopup from '../../MenuLinkPopup/MenuLinkPopup.vue';
 import styles from './HeaderMainLine.module.scss';
+import burgerIcon from '@/icons/burger.svg';
+import xIcon from '@/icons/x.svg';
+import telegramIcon from '@/icons/telegram.svg';
+import whatsappIcon from '@/icons/whatsapp.svg';
+import globeIcon from '@/icons/globe.svg';
+import heartIcon from '@/icons/heart.svg';
+import userIcon from '@/icons/user.svg';
+import cartIcon from '@/icons/cart.svg';
+import logoIcon from '@/icons/logo.svg';
+import lupaIcon from '@/icons/lupa.svg';
+// Иконки для меню
+import FlameIcon from '@/icons/Flame.svg';
+import lightningIcon from '@/icons/lightning.svg';
+import cart2Icon from '@/icons/cart2.svg';
+import questIcon from '@/icons/quest.svg';
+import orcIcon from '@/icons/orc.svg';
+// Объект для доступа к иконкам меню
+const menuIconMap = {
+    'Flame': FlameIcon,
+    'lightning': lightningIcon,
+    'cart2': cart2Icon,
+    'quest': questIcon,
+    'orc': orcIcon
+};
+// Объект для социальных иконок
+const socialIcons = {
+    'telegram': telegramIcon,
+    'whatsapp': whatsappIcon
+};
+// Объект для иконок профиля
+const profileIcons = {
+    'heart': heartIcon,
+    'user': userIcon,
+    'cart': cartIcon
+};
 const props = defineProps({
     isMenuOpen: Boolean
 });
@@ -162,14 +197,14 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElement
 /** @type {typeof __VLS_ctx.desktopBurgerButton} */ ;
 if (!props.isMenuOpen) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-        src: "../../../icons/burger.svg",
+        src: (__VLS_ctx.burgerIcon),
         ...{ class: (__VLS_ctx.styles.burgerIcon) },
         alt: "Menu",
     });
 }
 else {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-        src: "../../../icons/x.svg",
+        src: (__VLS_ctx.xIcon),
         ...{ class: (__VLS_ctx.styles.burgerIcon) },
         alt: "Close",
     });
@@ -201,7 +236,7 @@ for (const [icon, index] of __VLS_getVForSourceType((['telegram', 'whatsapp'])))
         href: "#",
     });
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-        src: (`/icons/${icon}.svg`),
+        src: (__VLS_ctx.socialIcons[icon]),
         ...{ class: (__VLS_ctx.styles.socialIcon) },
         alt: (icon),
     });
@@ -213,7 +248,7 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
     ...{ class: (__VLS_ctx.styles.lang) },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-    src: "/icons/globe.svg",
+    src: (__VLS_ctx.globeIcon),
     ...{ class: (__VLS_ctx.styles.langIcon) },
     alt: "Globe",
 });
@@ -234,7 +269,7 @@ for (const [icon, index] of __VLS_getVForSourceType((['heart', 'user', 'cart']))
         href: "#",
     });
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-        src: (`/icons/${icon}.svg`),
+        src: (__VLS_ctx.profileIcons[icon]),
         ...{ class: (__VLS_ctx.styles.icon) },
         alt: (icon),
     });
@@ -256,7 +291,7 @@ for (const [item, index] of __VLS_getVForSourceType((__VLS_ctx.menuItems))) {
         ...{ class: "menu-link" },
     });
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-        src: (`/icons/${item.icon}.svg`),
+        src: (__VLS_ctx.menuIconMap[item.icon]),
         ...{ class: (__VLS_ctx.styles.menuIcon) },
         alt: (item.icon),
     });
@@ -290,14 +325,14 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElement
 /** @type {typeof __VLS_ctx.mobileBurgerButton} */ ;
 if (!props.isMenuOpen) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-        src: "../../../icons/burger.svg",
+        src: (__VLS_ctx.burgerIcon),
         ...{ class: (__VLS_ctx.styles.burgerIcon) },
         alt: "Menu",
     });
 }
 else {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-        src: "../../../icons/x.svg",
+        src: (__VLS_ctx.xIcon),
         ...{ class: (__VLS_ctx.styles.burgerIcon) },
         alt: "Close",
     });
@@ -310,7 +345,7 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.a, __VLS_intrinsicElements.a)(
     href: "#",
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-    src: "/icons/user.svg",
+    src: (__VLS_ctx.userIcon),
     ...{ class: (__VLS_ctx.styles.icon) },
     alt: "user",
 });
@@ -318,7 +353,7 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
     ...{ class: (__VLS_ctx.styles.logoCell) },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-    src: "/icons/logo.svg",
+    src: (__VLS_ctx.logoIcon),
     ...{ class: (__VLS_ctx.styles.logo) },
     alt: "Logo",
 });
@@ -330,7 +365,7 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.a, __VLS_intrinsicElements.a)(
     href: "#",
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-    src: "/icons/heart.svg",
+    src: (__VLS_ctx.heartIcon),
     ...{ class: (__VLS_ctx.styles.icon) },
     alt: "heart",
 });
@@ -342,7 +377,7 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.a, __VLS_intrinsicElements.a)(
     href: "#",
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-    src: "/icons/cart.svg",
+    src: (__VLS_ctx.cartIcon),
     ...{ class: (__VLS_ctx.styles.icon) },
     alt: "cart",
 });
@@ -362,7 +397,7 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElement
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
     ...{ class: (__VLS_ctx.styles.searchIcon) },
-    src: "../../../icons/lupa.svg",
+    src: (__VLS_ctx.lupaIcon),
     alt: "Search",
 });
 for (const [item] of __VLS_getVForSourceType((__VLS_ctx.popupItems))) {
@@ -399,6 +434,17 @@ const __VLS_self = (await import('vue')).defineComponent({
         return {
             MenuLinkPopup: MenuLinkPopup,
             styles: styles,
+            burgerIcon: burgerIcon,
+            xIcon: xIcon,
+            globeIcon: globeIcon,
+            heartIcon: heartIcon,
+            userIcon: userIcon,
+            cartIcon: cartIcon,
+            logoIcon: logoIcon,
+            lupaIcon: lupaIcon,
+            menuIconMap: menuIconMap,
+            socialIcons: socialIcons,
+            profileIcons: profileIcons,
             desktopBurgerButton: desktopBurgerButton,
             mobileBurgerButton: mobileBurgerButton,
             activePopup: activePopup,
