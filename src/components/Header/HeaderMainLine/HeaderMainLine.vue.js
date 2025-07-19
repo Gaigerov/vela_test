@@ -19,22 +19,22 @@ import questIcon from '@/icons/quest.svg';
 import orcIcon from '@/icons/orc.svg';
 // Объект для доступа к иконкам меню
 const menuIconMap = {
-    'Flame': FlameIcon,
-    'lightning': lightningIcon,
-    'cart2': cart2Icon,
-    'quest': questIcon,
-    'orc': orcIcon
+    Flame: FlameIcon,
+    lightning: lightningIcon,
+    cart2: cart2Icon,
+    quest: questIcon,
+    orc: orcIcon
 };
 // Объект для социальных иконок
 const socialIcons = {
-    'telegram': telegramIcon,
-    'whatsapp': whatsappIcon
+    telegram: telegramIcon,
+    whatsapp: whatsappIcon
 };
 // Объект для иконок профиля
 const profileIcons = {
-    'heart': heartIcon,
-    'user': userIcon,
-    'cart': cartIcon
+    heart: heartIcon,
+    user: userIcon,
+    cart: cartIcon
 };
 const props = defineProps({
     isMenuOpen: Boolean
@@ -47,9 +47,7 @@ const activePopupElement = ref(null);
 const isClickHandled = ref(false);
 const handleBurgerClick = (event) => {
     event.stopPropagation();
-    const currentButton = window.innerWidth >= 1420
-        ? desktopBurgerButton.value
-        : mobileBurgerButton.value;
+    const currentButton = window.innerWidth >= 1420 ? desktopBurgerButton.value : mobileBurgerButton.value;
     if (currentButton) {
         emit('toggleMobileMenu', currentButton);
     }
@@ -64,9 +62,7 @@ const handleMenuLinkClick = (event, id) => {
     }
     else {
         if (props.isMenuOpen) {
-            const currentButton = window.innerWidth >= 1420
-                ? desktopBurgerButton.value
-                : mobileBurgerButton.value;
+            const currentButton = window.innerWidth >= 1420 ? desktopBurgerButton.value : mobileBurgerButton.value;
             if (currentButton) {
                 emit('toggleMobileMenu', currentButton);
             }
@@ -195,6 +191,18 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElement
     ...{ class: (__VLS_ctx.styles.burger) },
 });
 /** @type {typeof __VLS_ctx.desktopBurgerButton} */ ;
+const __VLS_0 = {}.transition;
+/** @type {[typeof __VLS_components.Transition, typeof __VLS_components.transition, typeof __VLS_components.Transition, typeof __VLS_components.transition, ]} */ ;
+// @ts-ignore
+const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
+    name: "burgerIcon",
+    mode: "out-in",
+}));
+const __VLS_2 = __VLS_1({
+    name: "burgerIcon",
+    mode: "out-in",
+}, ...__VLS_functionalComponentArgsRest(__VLS_1));
+__VLS_3.slots.default;
 if (!props.isMenuOpen) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
         src: (__VLS_ctx.burgerIcon),
@@ -209,6 +217,7 @@ else {
         alt: "Close",
     });
 }
+var __VLS_3;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: (__VLS_ctx.styles.searchCell) },
 });
@@ -323,6 +332,18 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElement
     ...{ class: (__VLS_ctx.styles.burger) },
 });
 /** @type {typeof __VLS_ctx.mobileBurgerButton} */ ;
+const __VLS_4 = {}.transition;
+/** @type {[typeof __VLS_components.Transition, typeof __VLS_components.transition, typeof __VLS_components.Transition, typeof __VLS_components.transition, ]} */ ;
+// @ts-ignore
+const __VLS_5 = __VLS_asFunctionalComponent(__VLS_4, new __VLS_4({
+    name: "burgerIcon",
+    mode: "out-in",
+}));
+const __VLS_6 = __VLS_5({
+    name: "burgerIcon",
+    mode: "out-in",
+}, ...__VLS_functionalComponentArgsRest(__VLS_5));
+__VLS_7.slots.default;
 if (!props.isMenuOpen) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
         src: (__VLS_ctx.burgerIcon),
@@ -337,6 +358,7 @@ else {
         alt: "Close",
     });
 }
+var __VLS_7;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: (__VLS_ctx.styles.userIconCell) },
 });
@@ -405,25 +427,25 @@ for (const [item] of __VLS_getVForSourceType((__VLS_ctx.popupItems))) {
     if (__VLS_ctx.activePopup === item.id && __VLS_ctx.activePopupElement) {
         /** @type {[typeof MenuLinkPopup, ]} */ ;
         // @ts-ignore
-        const __VLS_0 = __VLS_asFunctionalComponent(MenuLinkPopup, new MenuLinkPopup({
+        const __VLS_8 = __VLS_asFunctionalComponent(MenuLinkPopup, new MenuLinkPopup({
             ...{ 'onClose': {} },
             buttonElement: (__VLS_ctx.activePopupElement),
             popupData: (item.popupData),
             ...{ class: "menu-link-popup" },
         }));
-        const __VLS_1 = __VLS_0({
+        const __VLS_9 = __VLS_8({
             ...{ 'onClose': {} },
             buttonElement: (__VLS_ctx.activePopupElement),
             popupData: (item.popupData),
             ...{ class: "menu-link-popup" },
-        }, ...__VLS_functionalComponentArgsRest(__VLS_0));
-        let __VLS_3;
-        let __VLS_4;
-        let __VLS_5;
-        const __VLS_6 = {
+        }, ...__VLS_functionalComponentArgsRest(__VLS_8));
+        let __VLS_11;
+        let __VLS_12;
+        let __VLS_13;
+        const __VLS_14 = {
             onClose: (__VLS_ctx.closePopup)
         };
-        var __VLS_2;
+        var __VLS_10;
     }
 }
 /** @type {__VLS_StyleScopedClasses['menu-link']} */ ;

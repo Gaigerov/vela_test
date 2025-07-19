@@ -23,24 +23,24 @@ import orcIcon from '@/icons/orc.svg';
 
 // Объект для доступа к иконкам меню
 const menuIconMap: Record<string, string> = {
-  'Flame': FlameIcon,
-  'lightning': lightningIcon,
-  'cart2': cart2Icon,
-  'quest': questIcon,
-  'orc': orcIcon
+    Flame: FlameIcon,
+    lightning: lightningIcon,
+    cart2: cart2Icon,
+    quest: questIcon,
+    orc: orcIcon
 };
 
 // Объект для социальных иконок
 const socialIcons: Record<string, string> = {
-  'telegram': telegramIcon,
-  'whatsapp': whatsappIcon
+    telegram: telegramIcon,
+    whatsapp: whatsappIcon
 };
 
 // Объект для иконок профиля
 const profileIcons: Record<string, string> = {
-  'heart': heartIcon,
-  'user': userIcon,
-  'cart': cartIcon
+    heart: heartIcon,
+    user: userIcon,
+    cart: cartIcon
 };
 
 const props = defineProps({
@@ -56,15 +56,13 @@ const isClickHandled = ref(false);
 
 const handleBurgerClick = (event: MouseEvent) => {
     event.stopPropagation();
-    
-    const currentButton = window.innerWidth >= 1420 
-        ? desktopBurgerButton.value
-        : mobileBurgerButton.value;
-    
+
+    const currentButton = window.innerWidth >= 1420 ? desktopBurgerButton.value : mobileBurgerButton.value;
+
     if (currentButton) {
         emit('toggleMobileMenu', currentButton);
     }
-    
+
     closePopup();
     isClickHandled.value = true;
 };
@@ -77,10 +75,8 @@ const handleMenuLinkClick = (event: MouseEvent, id: string) => {
         closePopup();
     } else {
         if (props.isMenuOpen) {
-            const currentButton = window.innerWidth >= 1420 
-                ? desktopBurgerButton.value
-                : mobileBurgerButton.value;
-            
+            const currentButton = window.innerWidth >= 1420 ? desktopBurgerButton.value : mobileBurgerButton.value;
+
             if (currentButton) {
                 emit('toggleMobileMenu', currentButton);
             }
@@ -220,13 +216,11 @@ const popupItems = computed(
     <!-- Desktop структура (скрыта на tablet/mobile) -->
     <div :class="styles.desktopContainer">
         <div :class="styles.burgerCell">
-            <button 
-                ref="desktopBurgerButton" 
-                :class="styles.burger" 
-                @click="handleBurgerClick"
-            >
-                <img v-if="!props.isMenuOpen" :src="burgerIcon" :class="styles.burgerIcon" alt="Menu" />
-                <img v-else :src="xIcon" :class="styles.burgerIcon" alt="Close" />
+            <button ref="desktopBurgerButton" :class="styles.burger" @click="handleBurgerClick">
+                <transition name="burgerIcon" mode="out-in">
+                    <img v-if="!props.isMenuOpen" :src="burgerIcon" :class="styles.burgerIcon" alt="Menu" />
+                    <img v-else :src="xIcon" :class="styles.burgerIcon" alt="Close" />
+                </transition>
             </button>
         </div>
 
@@ -290,13 +284,11 @@ const popupItems = computed(
     <!-- Tablet/Mobile структура (скрыта на desktop) -->
     <div :class="styles.mobileContainer">
         <div :class="styles.burgerCellMobile">
-            <button 
-                ref="mobileBurgerButton" 
-                :class="styles.burger" 
-                @click="handleBurgerClick"
-            >
-                <img v-if="!props.isMenuOpen" :src="burgerIcon" :class="styles.burgerIcon" alt="Menu" />
-                <img v-else :src="xIcon" :class="styles.burgerIcon" alt="Close" />
+            <button ref="mobileBurgerButton" :class="styles.burger" @click="handleBurgerClick">
+                <transition name="burgerIcon" mode="out-in">
+                    <img v-if="!props.isMenuOpen" :src="burgerIcon" :class="styles.burgerIcon" alt="Menu" />
+                    <img v-else :src="xIcon" :class="styles.burgerIcon" alt="Close" />
+                </transition>
             </button>
         </div>
 
@@ -321,7 +313,7 @@ const popupItems = computed(
                 <img :src="cartIcon" :class="styles.icon" alt="cart" />
             </a>
         </div>
-        
+
         <div :class="styles.mobileSearchCell">
             <div :class="styles.search">
                 <input type="text" :class="styles.searchInput" placeholder="Поиск товаров..." />
