@@ -2,9 +2,63 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 36px;
+    padding: 0 20px;
     height: $top-line-height;
     background-color: #f4f4f4;
+    position: relative;
+
+    .langCell,
+    .mobileContact {
+        display: none;
+    }
+
+
+    @media (max-width: $tablet) {
+        padding: 8px 20px; 
+        gap: 10px; 
+
+        .contacts {
+            gap: 10px; 
+            flex: 0 0 auto; 
+        }
+
+        .contactItem {
+            font-size: 14px;
+            gap: 6px; 
+        }
+
+        .schedule {
+            font-size: 14px;
+        }
+
+        .navTop {
+            gap: 10px; 
+        }
+
+        .navLink {
+            font-size: 14px;
+        }
+
+        .topLine {
+            padding: 0 34px;
+        }
+    }
+
+    @media (max-width: $mobile) {
+        padding: 12px 16px;
+        justify-content: space-between;
+
+        .contacts,
+        .schedule,
+        .navTop {
+            display: none;
+        }
+
+        .langCell,
+        .mobileContact {
+            display: block;
+        }
+    }
 }
 
 .contacts {
@@ -56,37 +110,42 @@
     }
 }
 
-@media (max-width: $tablet) {
-    .schedule {
-        position: static;
-        transform: none;
+.lang {
+    font-family: $font-family-maza;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 16px;
+    cursor: default;
+    transition: background 0.3s ease;
+}
+
+.langIcon {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0);
+}
+
+.lang span {
+    cursor: pointer;
+    transition: filter 0.3s ease, color 0.3s ease;
+
+    &:not(.activeLang) {
+        filter: brightness(0) saturate(100%) invert(49%) sepia(9%) saturate(27%) hue-rotate(345deg) brightness(95%)
+            contrast(79%);
     }
 
-    .topLine {
-        flex-wrap: wrap;
-        height: auto;
-        gap: 12px;
+    &.activeLang {
+        color: black;
     }
 
-    .contacts {
-        order: 1;
-        width: 100%;
-        justify-content: center;
-    }
-
-    .schedule {
-        order: 2;
-    }
-
-    .navTop {
-        order: 3;
-        width: 100%;
-        justify-content: center;
+    &:not(.activeLang):hover {
+        filter: none;
+        color: black;
     }
 }
 
-@media (max-width: $mobile) {
-    .topLine {
-        display: none;
-    }
+.mobileContact .contactItem {
+    font-size: 14px;
 }

@@ -8,24 +8,27 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['toggleMobileMenu']);
-const burgerButton = ref<HTMLButtonElement | null>(null);
-
-// Состояния для управления меню
+const desktopBurgerButton = ref<HTMLButtonElement | null>(null);
+const mobileBurgerButton = ref<HTMLButtonElement | null>(null);
 const activePopup = ref<string | null>(null);
 const activePopupElement = ref<HTMLElement | null>(null);
 const isClickHandled = ref(false);
 
-// Обработчик клика по бургеру
 const handleBurgerClick = (event: MouseEvent) => {
     event.stopPropagation();
-    if (burgerButton.value) {
-        emit('toggleMobileMenu', burgerButton.value);
+    
+    const currentButton = window.innerWidth >= 1420 
+        ? desktopBurgerButton.value
+        : mobileBurgerButton.value;
+    
+    if (currentButton) {
+        emit('toggleMobileMenu', currentButton);
     }
+    
     closePopup();
     isClickHandled.value = true;
 };
 
-// Обработчик клика по пункту меню
 const handleMenuLinkClick = (event: MouseEvent, id: string) => {
     event.stopPropagation();
     event.preventDefault();
@@ -33,9 +36,14 @@ const handleMenuLinkClick = (event: MouseEvent, id: string) => {
     if (activePopup.value === id) {
         closePopup();
     } else {
-        // Закрываем мобильное меню при открытии попапа
         if (props.isMenuOpen) {
-            emit('toggleMobileMenu', burgerButton.value);
+            const currentButton = window.innerWidth >= 1420 
+                ? desktopBurgerButton.value
+                : mobileBurgerButton.value;
+            
+            if (currentButton) {
+                emit('toggleMobileMenu', currentButton);
+            }
         }
 
         activePopup.value = id;
@@ -48,7 +56,6 @@ const closePopup = () => {
     activePopup.value = null;
 };
 
-// Обработчик клика вне попапа
 const handleDocumentClick = (event: MouseEvent) => {
     if (isClickHandled.value) {
         isClickHandled.value = false;
@@ -63,7 +70,6 @@ const handleDocumentClick = (event: MouseEvent) => {
     }
 };
 
-// Закрываем попап при изменении размера окна
 const handleResize = () => {
     closePopup();
 };
@@ -78,7 +84,6 @@ onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize);
 });
 
-// Закрываем попап при открытии/закрытии мобильного меню
 watch(
     () => props.isMenuOpen,
     newVal => {
@@ -88,10 +93,6 @@ watch(
     }
 );
 
-const socialIcons = ['telegram', 'whatsapp'];
-const userIcons = ['heart', 'user', 'cart'];
-
-// Данные для пунктов меню с попапами
 const menuItems = [
     {
         text: 'Акции',
@@ -164,7 +165,6 @@ const menuItems = [
     }
 ];
 
-// Фильтруем только пункты с попапами
 const popupItems = computed(
     () =>
         menuItems.filter(item => item.popupData) as Array<{
@@ -177,17 +177,19 @@ const popupItems = computed(
 </script>
 
 <template>
-    <div :class="styles.gridContainer">
-        <!-- Первая строка -->
-        <!-- Колонка 1: Бургер -->
+    <!-- Desktop структура (скрыта на tablet/mobile) -->
+    <div :class="styles.desktopContainer">
         <div :class="styles.burgerCell">
-            <button ref="burgerButton" :class="styles.burger" @click="handleBurgerClick">
+            <button 
+                ref="desktopBurgerButton" 
+                :class="styles.burger" 
+                @click="handleBurgerClick"
+            >
                 <img v-if="!props.isMenuOpen" src="../../../icons/burger.svg" :class="styles.burgerIcon" alt="Menu" />
                 <img v-else src="../../../icons/x.svg" :class="styles.burgerIcon" alt="Close" />
             </button>
         </div>
 
-        <!-- Колонка 2: Поиск -->
         <div :class="styles.searchCell">
             <div :class="styles.search">
                 <input type="text" :class="styles.searchInput" placeholder="Поиск товаров..." />
@@ -195,16 +197,14 @@ const popupItems = computed(
             </div>
         </div>
 
-        <!-- Колонка 3: Соцсети -->
         <div :class="styles.socialsCell">
             <div :class="styles.socials">
-                <a v-for="(icon, index) in socialIcons" :key="index" :class="styles.socialLink" href="#">
+                <a v-for="(icon, index) in ['telegram', 'whatsapp']" :key="index" :class="styles.socialLink" href="#">
                     <img :src="`/icons/${icon}.svg`" :class="styles.socialIcon" :alt="icon" />
                 </a>
             </div>
         </div>
 
-        <!-- Колонка 4: Язык -->
         <div :class="styles.langCell">
             <div :class="styles.lang">
                 <img src="/icons/globe.svg" :class="styles.langIcon" alt="Globe" />
@@ -213,23 +213,20 @@ const popupItems = computed(
             </div>
         </div>
 
-        <!-- Колонка 5: Иконки пользователя -->
         <div :class="styles.iconsCell">
             <div :class="styles.icons">
-                <a v-for="(icon, index) in userIcons" :key="index" :class="styles.iconLink" href="#">
+                <a v-for="(icon, index) in ['heart', 'user', 'cart']" :key="index" :class="styles.iconLink" href="#">
                     <img :src="`/icons/${icon}.svg`" :class="styles.icon" :alt="icon" />
                 </a>
             </div>
         </div>
 
-        <!-- Вторая строка -->
-        <!-- Колонки 1-3: Меню -->
         <div :class="styles.menuCell">
             <nav :class="styles.menu">
-                <a 
-                    v-for="(item, index) in menuItems" 
-                    :key="index" 
-                    :class="[styles.menuLink, { [styles.active]: activePopup === item.id }]"
+                <a
+                    v-for="(item, index) in menuItems"
+                    :key="index"
+                    :class="[styles.menuLink, {[styles.active]: activePopup === item.id}]"
                     href="#"
                     @click="handleMenuLinkClick($event, item.id)"
                     class="menu-link"
@@ -240,10 +237,8 @@ const popupItems = computed(
             </nav>
         </div>
 
-        <!-- Колонка 4: Пустая -->
         <div :class="styles.emptyCell"></div>
 
-        <!-- Колонка 5: Кнопка сборки -->
         <div :class="styles.buttonCell">
             <button :class="styles.buildBtn">
                 <img src="/icons/plus.svg" :class="styles.buildIcon" alt="Plus" />
@@ -252,7 +247,51 @@ const popupItems = computed(
         </div>
     </div>
 
-    <!-- Всплывающие меню -->
+    <!-- Tablet/Mobile структура (скрыта на desktop) -->
+    <div :class="styles.mobileContainer">
+        <div :class="styles.burgerCellMobile">
+            <button 
+                ref="mobileBurgerButton" 
+                :class="styles.burger" 
+                @click="handleBurgerClick"
+            >
+                <img v-if="!props.isMenuOpen" src="../../../icons/burger.svg" :class="styles.burgerIcon" alt="Menu" />
+                <img v-else src="../../../icons/x.svg" :class="styles.burgerIcon" alt="Close" />
+            </button>
+        </div>
+
+        <div :class="styles.userIconCell">
+            <a :class="styles.iconLink" href="#">
+                <img src="/icons/user.svg" :class="styles.icon" alt="user" />
+            </a>
+        </div>
+
+        <div :class="styles.logoCell">
+            <img src="/icons/logo.svg" :class="styles.logo" alt="Logo" />
+        </div>
+
+        <div :class="styles.heartIconCell">
+            <a :class="styles.iconLink" href="#">
+                <img src="/icons/heart.svg" :class="styles.icon" alt="heart" />
+            </a>
+        </div>
+
+        <div :class="styles.cartIconCell">
+            <a :class="styles.iconLink" href="#">
+                <img src="/icons/cart.svg" :class="styles.icon" alt="cart" />
+            </a>
+        </div>
+
+        <div :class="styles.mobileSearchCell">
+            <div :class="styles.search">
+                <input type="text" :class="styles.searchInput" placeholder="Поиск товаров..." />
+                <button :class="styles.searchButton">
+                    <img :class="styles.searchIcon" src="../../../icons/lupa.svg" alt="Search" />
+                </button>
+            </div>
+        </div>
+    </div>
+
     <template v-for="item in popupItems" :key="item.id">
         <MenuLinkPopup
             v-if="activePopup === item.id && activePopupElement"

@@ -1,24 +1,5 @@
-.gridContainer {
-    display: grid;
-    grid-template-columns: 101px auto 108px 115px 176px;
-    grid-template-rows: auto auto;
-    gap: 16px;
-    width: 100%;
-    padding-top: 16px;
-
-    > div {
-        display: flex;
-        align-items: center;
-    }
-}
-
-// Стили для бургера
-.burgerCell {
-    grid-row: 1;
-    grid-column: 1;
-}
-
 .burger {
+    position: relative;
     background-color: $secondary-color;
     border: none;
     cursor: pointer;
@@ -28,6 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 48px;
     width: 100%;
 
     &:hover {
@@ -40,16 +22,8 @@
 }
 
 .burgerIcon {
-    width: 32px;
-    height: 24px;
     display: block;
     filter: brightness(0) invert(1);
-}
-
-// Стили для поиска
-.searchCell {
-    grid-row: 1;
-    grid-column: 2;
 }
 
 .search {
@@ -94,7 +68,53 @@
     }
 }
 
-// Стили для соцсетей
+.iconLink {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    transition: transform 0.3s ease, background 0.3s ease;
+    width: 48px;
+    height: 48px;
+
+    &:hover {
+        transform: translateY(-3px);
+        background: #e0e0e0;
+
+        .icon {
+            filter: brightness(0) saturate(100%) invert(40%) sepia(99%) saturate(3519%) hue-rotate(208deg)
+                brightness(98%) contrast(102%);
+        }
+    }
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Desktop стили ====================================== */
+.desktopContainer {
+    display: grid;
+    grid-template-columns: 101px auto 108px 115px 176px;
+    grid-template-rows: auto auto;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 0 20px;
+
+    > div {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.burgerCell {
+    grid-row: 1;
+    grid-column: 1;
+}
+
 .socialsCell {
     grid-row: 1;
     grid-column: 3;
@@ -131,7 +151,7 @@
     height: 24px;
 }
 
-// Стили для языка
+/* Стили для языка */
 .langCell {
     grid-row: 1;
     grid-column: 4;
@@ -169,11 +189,10 @@
 
     &:not(.activeLang):hover {
         filter: none;
-        color: black;
+        color: $secondary-color;
     }
 }
 
-// Стили для иконок
 .iconsCell {
     grid-row: 1;
     grid-column: 5;
@@ -182,56 +201,17 @@
 .icons {
     display: flex;
     gap: 16px;
-}
-
-.iconLink {
-    font-family: $font-family-maza;
-    position: relative;
-    display: flex;
-    width: 48px;
-    height: 48px;
-    justify-content: center;
     align-items: center;
-    border: 1px solid #d3d3d3;
-    border-radius: 4px;
-    transition: transform 0.3s ease, background 0.3s ease;
-
-    &:hover {
-        transform: translateY(-3px);
-        background: #e0e0e0;
-
-        .icon {
-            filter: brightness(0) saturate(100%) invert(40%) sepia(99%) saturate(3519%) hue-rotate(208deg)
-                brightness(98%) contrast(102%);
-        }
-    }
 }
 
-.icon {
-    width: 24px;
-    height: 24px;
-}
-
-.iconBadge {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    background: $badge-color;
-    color: $white;
-    font-size: 10px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    @include flex-center;
-}
-
-// Стили для меню
+/* Стили для меню */
 .menuCell {
     grid-row: 2;
     grid-column: 1 / span 3;
     display: flex;
     width: calc(100% + 32px);
     margin-left: -16px;
+    align-items: center;
 }
 
 .menu {
@@ -240,6 +220,7 @@
     width: 100%;
     gap: 16px;
     padding: 0 16px;
+    align-items: center;
 }
 
 .menuLink {
@@ -293,12 +274,15 @@
 .emptyCell {
     grid-row: 2;
     grid-column: 4;
+    display: flex;
+    align-items: center;
 }
 
-// Стили для кнопки сборки
 .buttonCell {
     grid-row: 2;
     grid-column: 5;
+    display: flex;
+    align-items: center;
 }
 
 .buildBtn {
@@ -336,112 +320,124 @@
     height: 16px;
 }
 
-@media (max-width: $desktop) {
-    .search {
-        max-width: 100%;
-    }
-
-    .menuLink {
-        padding: 11px 12px;
-        font-size: 14px;
-    }
+/* Mobile/Tablet стили ================================ */
+.mobileContainer {
+    display: none;
 }
 
-@media (max-width: $tablet) {
-    .gridContainer {
-        grid-template-columns: auto 1fr auto auto;
-        padding: 12px 16px;
+.logo {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.searchIcon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+@media (max-width: 1420px) {
+    .desktopContainer {
+        display: none;
+    }
+
+    .mobileContainer {
+        display: grid;
+        grid-template-columns: auto auto 1fr auto auto;
+        grid-template-rows: auto auto;
+        padding: 12px 0 14px 0;
         gap: 12px;
-    }
+        width: 100%;
 
-    .socialsCell {
-        display: none;
-    }
+        & > div {
+            display: flex;
+            align-items: center;
+        }
 
-    .menuCell {
-        grid-column: 1 / span 2;
-        margin-left: -12px;
-        width: calc(100% + 24px);
-    }
-
-    .langCell {
-        grid-row: 1;
-        grid-column: 3;
-    }
-
-    .iconsCell {
-        grid-row: 1;
-        grid-column: 4;
-    }
-
-    .emptyCell {
-        grid-row: 2;
-        grid-column: 3;
-    }
-
-    .buttonCell {
-        grid-row: 2;
-        grid-column: 4;
-    }
-
-    .menuIcon {
-        width: 18px;
-        height: 18px;
-    }
-}
-
-@media (max-width: $mobile) {
-    .gridContainer {
-        grid-template-columns: auto 1fr auto;
-        padding: 10px 12px;
-        gap: 8px;
-    }
-
-    .menuCell {
-        display: none;
-    }
-
-    .langCell {
-        display: none;
-    }
-
-    .emptyCell {
-        display: none;
-    }
-
-    .burgerCell {
-        grid-row: 1;
-        grid-column: 1;
-    }
-
-    .searchCell {
-        grid-row: 1;
-        grid-column: 2;
-    }
-
-    .iconsCell {
-        grid-row: 1;
-        grid-column: 3;
-    }
-
-    .buttonCell {
-        grid-row: 2;
-        grid-column: 1 / span 3;
+        .logoCell {
+            justify-content: center;
+        }
     }
 
     .burger {
-        padding: 16px 12px;
+        padding: 8px;
+        width: 48px;
+        height: 48px;
     }
 
     .burgerIcon {
         width: 24px;
-        height: 18px;
+        height: 24px;
     }
 
-    .buildBtn {
-        padding: 6px 12px;
+    .searchButton {
+        padding: 12px;
+        span {
+            display: none;
+        }
+
+        .searchIcon {
+            display: block;
+        }
+    }
+
+    .mobileSearchCell {
+        grid-column: 1 / span 5;
+        width: 100%;
+
+        .search {
+            width: 100%;
+
+            .searchInput {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .mobileContainer {
+        padding: 0;
+        gap: 8px;
+
+        & > div {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .burger {
+        padding: 8px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .burgerIcon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .iconLink {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo {
+        width: 56px;
+        height: 56px;
+    }
+
+    .searchInput {
+        height: 48px;
         font-size: 14px;
-        max-width: 200px;
-        margin: 0 auto;
+    }
+
+    .mobileSearchCell {
+        width: 100%;
+
+        .search {
+            width: 100%;
+        }
     }
 }

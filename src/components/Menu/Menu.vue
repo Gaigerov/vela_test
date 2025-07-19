@@ -1,7 +1,7 @@
 <template>
     <div
         ref="menuRef"
-        :class="styles.menuPopup"
+        :class="[styles.menuPopup, {[styles.active]: isActive}]"
         :style="{'--submenu-width': `${submenuWidth}px`}"
         @mouseleave="closeSubMenu"
     >
@@ -80,6 +80,8 @@ const emit = defineEmits(['close']);
 const getIconUrl = (iconName: string) => {
     return new URL(`../../icons/${iconName}`, import.meta.url).href;
 };
+
+
 
 const menuItems: MenuItem[] = [
     {
@@ -173,6 +175,7 @@ const menuRef = ref<HTMLElement | null>(null);
 const submenuRef = ref<HTMLElement | null>(null);
 const submenuWidth = ref(0);
 const isSubMenuHovered = ref(false);
+const isActive = ref(false);
 
 const showSubMenu = (index: number, subs?: SubItem[]) => {
     activeIndex.value = index;
@@ -212,24 +215,31 @@ const handleClickOutside = (event: MouseEvent) => {
     }
 };
 
+const updatePosition = () => {
+    if (!menuRef.value || !props.buttonElement) return;
+    
+    const rect = props.buttonElement.getBoundingClientRect();
+    
+    menuRef.value.style.position = 'fixed';
+    menuRef.value.style.top = `${rect.bottom + window.scrollY + 80}px`;
+    menuRef.value.style.left = `${rect.left + window.scrollX}px`;
+};
+
 onMounted(() => {
     document.addEventListener('click', handleClickOutside);
     window.addEventListener('resize', updatePosition);
     updatePosition();
+    
+    setTimeout(() => {
+        if (menuRef.value) {
+            isActive.value = true;
+            menuRef.value.classList.add(styles.active);
+        }
+    }, 10);
 });
 
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside);
     window.removeEventListener('resize', updatePosition);
 });
-
-const updatePosition = () => {
-    if (menuRef.value && props.buttonElement) {
-        const rect = props.buttonElement.getBoundingClientRect();
-        menuRef.value.style.position = 'fixed';
-        menuRef.value.style.top = `${rect.bottom + window.scrollY}px`;
-        menuRef.value.style.left = `${rect.left + window.scrollX}px`;
-        menuRef.value.style.width = 'auto';
-    }
-};
 </script>

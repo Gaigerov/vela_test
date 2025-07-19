@@ -12,7 +12,7 @@
 .mainContainer {
     display: flex;
     align-items: flex-start;
-    padding: 0 36px 24px;
+    padding: 0 20px;
     background-color: white;
 }
 
@@ -36,18 +36,15 @@
     width: 100%;
 }
 
+@media (max-width: $tablet) {
+    .mainContainer {
+        padding: 16 20px 16px;
+    }
+}
+
 @media (max-width: $mobile) {
     .mainContainer {
-        padding: 10px 16px;
+        padding: 16px 16px 14px;
         align-items: center;
-    }
-
-    .logo {
-        margin-right: 20px;
-
-        img {
-            width: 60px;
-            height: 60px;
-        }
     }
 }

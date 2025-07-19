@@ -105,7 +105,7 @@ const positionStyle = computed(() => {
 
     const rect = props.buttonElement.getBoundingClientRect();
     return {
-        top: `${rect.bottom + window.scrollY}px`,
+        top: `${rect.bottom + window.scrollY + 21}px`,
         left: `${rect.left + window.scrollX}px`,
         '--submenu-width': `${submenuWidth.value}px`
     };
@@ -163,7 +163,7 @@ const handleClickOutside = (event: MouseEvent) => {
 const updatePosition = () => {
     if (menuRef.value && props.buttonElement) {
         const rect = props.buttonElement.getBoundingClientRect();
-        menuRef.value.style.top = `${rect.bottom + window.scrollY}px`;
+        menuRef.value.style.top = `${rect.bottom + window.scrollY + 21}px`;
         menuRef.value.style.left = `${rect.left + window.scrollX}px`;
     }
 };
